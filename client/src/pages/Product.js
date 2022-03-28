@@ -1,10 +1,23 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import PRODUCTS from '../products';
+const API_URL = "http://localhost:5000"
 
 const Product = () => {
   let params = useParams();
-  const product = PRODUCTS.find(({ sku }) => sku === params.sku);
+  const [product, setProduct] = useState(null)
+  useEffect(() => {
+    fetch(`${API_URL}/products/${params.sku}`)
+    .then(res => res.json())
+    .then((result) => {
+        setProduct(result)
+    })
+  }, [params.sku])
+
+  if(!product){
+      return <p> Loading...</p>
+  }
+  
   const { sku, name, description, image, price, discountPrice } = product;
   return (
     <section className="py-5">

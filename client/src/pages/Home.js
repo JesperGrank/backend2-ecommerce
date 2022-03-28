@@ -1,7 +1,22 @@
-import ProductListItem from '../components/ProductListItem.js';
-import PRODUCTS from '../products.js';
+import {useState, useEffect} from "react"
 
-const Home = () => (
+import ProductListItem from '../components/ProductListItem.js';
+// import PRODUCTS from '../products.js';
+
+const API_URL = "http://localhost:5000"
+
+const Home = () => {
+    const [products, setProducts] = useState([])
+
+    useEffect(() => {
+        fetch(`${API_URL}/products`)
+        .then(res => res.json())
+        .then(result => { 
+        setProducts(result.products)
+     })
+    }, [])
+
+    return (
   <>
     <header className="bg-dark py-5">
         <div className="container px-4 px-lg-5 my-5">
@@ -14,11 +29,12 @@ const Home = () => (
     <section className="py-5">
         <div className="container px-4 px-lg-5 mt-5">
             <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                { PRODUCTS.map(product => <ProductListItem key={product.sku} {...product} />) }
+                { products.map(product => <ProductListItem key={product.sku} {...product} />) }
             </div>
         </div>
     </section>
   </>
-);
+    )
+};
 
 export default Home;
