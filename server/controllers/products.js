@@ -1,6 +1,5 @@
 const express = require("express")
 
-const { readProducts } = require("../models/products.js")
 const { getAllProducts, getProduct} = require("../models/products.js")
 
 const productRoutes = express.Router()
