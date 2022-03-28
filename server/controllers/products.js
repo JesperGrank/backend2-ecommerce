@@ -5,7 +5,7 @@ const { getAllProducts, getProduct} = require("../models/products.js")
 const productRoutes = express.Router()
 
 productRoutes.get("/", async (req, res) => {
-    const products = await readProducts()
+    const products = await getAllProducts()
     res.json(products)
 })
 
