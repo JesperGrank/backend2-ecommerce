@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const productSchema = new mongoose.Schema({
     name: {type: String, required: true},
-    sku: {type: String, required: true},
+    sku: {type: String, required: true, unique: true},
     price: {type: Number, required: true},
     discountPrice: Number,
     description: {type: String, required: true},
@@ -20,4 +20,8 @@ const getProduct = async (sku) => {
     return await Product.findOne({sku})
 }
 
-module.exports = { getAllProducts, getProduct }
+const createProduct = async (productData) => {
+    return await Product.create(productData)
+}
+
+module.exports = { getAllProducts, getProduct, createProduct}
